@@ -878,22 +878,29 @@ ul.cbullets li::before {
 <!-- TOP CREATIVES Combined -->
 <section class="section">
   <h2 class="section-title">Что не сработало</h2>
-  <div class="content-block">
-    <div>
-      <p class="subhead" style="color:var(--pink);">Паразитирование на замерзании, драме и пинах</p>
-      <ul class="blist pink-nums">
-        <li data-n="1">Перенасыщение аудитории подобной рекламой</li>
-        <li data-n="2">Связка Жалость-Замерзание-Пины сработала на 1–2 роликах, остальные тесты не показали результата</li>
-        <li data-n="3">Тема спасения замерзающих персонажей выгорела</li>
-      </ul>
+  <div class="pillars" style="grid-template-columns:repeat(2,1fr);">
+    <div class="pillar p1" id="pil-nsr1" onclick="toggleNsr('nsr1')">
+      <span class="pillar-name">Паразитирование на замерзании, драме и пинах</span>
+      <span class="pillar-chevron">&#9660;</span>
     </div>
-    <div>
-      <p class="subhead" style="color:var(--pink);">Чуждые нам механики</p>
-      <ul class="blist pink-nums">
-        <li data-n="1">Механики Редизайн, Матч3, Мердж, Выбор из двух и Харвестер не зацепились за закупку</li>
-        <li data-n="2">Концепции Ремонт и Мемные старты тоже не показали результатов</li>
-      </ul>
+    <div class="pillar p2" id="pil-nsr2" onclick="toggleNsr('nsr2')">
+      <span class="pillar-name">Чуждые нам механики</span>
+      <span class="pillar-chevron">&#9660;</span>
     </div>
+  </div>
+
+  <div id="acc-nsr1" class="acc-panel" style="display:none;">
+    <ul class="blist pink-nums">
+      <li data-n="1">Перенасыщение аудитории подобной рекламой</li>
+      <li data-n="2">Связка Жалость-Замерзание-Пины сработала на 1–2 роликах, остальные тесты не показали результата</li>
+      <li data-n="3">Тема спасения замерзающих персонажей выгорела</li>
+    </ul>
+  </div>
+  <div id="acc-nsr2" class="acc-panel" style="display:none;">
+    <ul class="blist pink-nums">
+      <li data-n="1">Механики Редизайн, Матч3, Мердж, Выбор из двух и Харвестер не зацепились за закупку</li>
+      <li data-n="2">Концепции Ремонт и Мемные старты тоже не показали результатов</li>
+    </ul>
   </div>
 </section>
 
@@ -958,6 +965,21 @@ function switchTab(e, id) {
   section.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   e.currentTarget.classList.add('active');
   document.getElementById('tab-' + id).classList.add('active');
+}
+
+function toggleNsr(id) {
+  const panel = document.getElementById('acc-nsr' + id.replace('nsr',''));
+  const pillar = document.getElementById('pil-nsr' + id.replace('nsr',''));
+  const isOpen = panel.style.display !== 'none';
+  ['nsr1','nsr2'].forEach(k => {
+    document.getElementById('acc-' + k).style.display = 'none';
+    document.getElementById('pil-' + k).classList.remove('pillar-active');
+  });
+  if (!isOpen) {
+    panel.style.display = 'block';
+    pillar.classList.add('pillar-active');
+    panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
 }
 
 function togglePillar(id) {
